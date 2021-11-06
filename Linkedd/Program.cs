@@ -9,15 +9,22 @@ namespace Linkedd
             //Node node = new Node(10);
             //node = node.Next;
 
-            LinkedList list = new LinkedList(new int[] {77,88,99 } );
-            LinkedList list2 = new LinkedList(new int[]{1,2,3,4,5} );
-            list2.AddAt(2,list);
+            //LinkedList list = new LinkedList(new int[] {77,88,99 } );
+            //LinkedList list2 = new LinkedList(new int[]{1,2,3,4,5} );
+            //list2.AddAt(2,list);
+            
+            DoublyLinkedList list = new DoublyLinkedList(new int[] {77,88,99,111,222,333 } );
+            Console.WriteLine(   list.GetLast());
+            //list.AddLast(20);
+            //list.AddLast(28);
+            //list.AddLast(29);
+            
             
 
             //list.RemoveLastMultiple(8);
             //list.RemoveAtMultiple(1, 11);
             //int[] result2 = list.SortDesc();
-            int[] result = list2.ToArray();
+            int[] result = list.ToArray();
             
             foreach (var item in result)
             {

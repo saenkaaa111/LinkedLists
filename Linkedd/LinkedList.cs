@@ -303,25 +303,14 @@ namespace Linkedd
 
         public int GetLast()
         {
-            int value = -1; 
-            if (_head != null)
+            if (GetLenght() != 0)
             {
-                Node current = _head;
-                if (current.Next != null)
-                {
-                    while (current.Next.Next != null)
-                    {
-                        current = current.Next;
-                    }
-                    value = current.Next.Value;                    
-                }
-                
+                return _tail.Value;
             }
             else
             {
                 throw new NullReferenceException("Нет элементов");
             }
-            return value;
 
         }
         public void RemoveAt(int idx)
