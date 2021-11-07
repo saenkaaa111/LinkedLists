@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Linkedd
+namespace List
 {
     public class Program
     {
@@ -13,8 +13,11 @@ namespace Linkedd
             //LinkedList list2 = new LinkedList(new int[]{1,2,3,4,5} );
             //list2.AddAt(2,list);
             
-            DoublyLinkedList list = new DoublyLinkedList(new int[] {77,88,99,111,222,333 } );
-            Console.WriteLine(   list.GetLast());
+            DoublyLinkedList list = new DoublyLinkedList(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 });
+            //DoublyLinkedList list2 = new DoublyLinkedList(new int[] {6,7} );
+            //Console.WriteLine(   list.GetLast());
+            list.Reverse();
+            //list.AddAt(2,78);
             //list.AddLast(20);
             //list.AddLast(28);
             //list.AddLast(29);

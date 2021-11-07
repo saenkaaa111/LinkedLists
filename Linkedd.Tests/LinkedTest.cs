@@ -1,9 +1,9 @@
 using NUnit.Framework;
 using System;
 
-namespace Linkedd.Tests
+namespace List.Tests
 {
-    public class Tests
+    public class LinkedTests
     {
 
 

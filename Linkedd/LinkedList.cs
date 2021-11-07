@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Linkedd
+namespace List
 {
     public class LinkedList
     {
@@ -141,11 +141,7 @@ namespace Linkedd
             if (GetLenght() == 0)
             {
                 _head = list._head;
-            }
-            else if (list.GetLenght() == 0)
-            {
-                _head = _head;
-            }
+            }            
             else
             {
                 _tail.Next = list._head.Next;
@@ -157,11 +153,7 @@ namespace Linkedd
             if (GetLenght() == 0)
             {
                 _head = list._head;
-            }
-            else if (list.GetLenght() == 0)
-            {
-                _head = _head;
-            }
+            }            
             else
             {
                 Node current = _head;
@@ -172,11 +164,7 @@ namespace Linkedd
         public void AddAt(int idx, LinkedList list)
         {
 
-            if (list.GetLenght() == 0)
-            {
-                _head = _head;
-            }
-            else if (GetLenght() > idx)
+            if (GetLenght() > idx)
             {
                 Node current = _head;
                 for (int i = 0; i < idx; i++)
@@ -185,7 +173,6 @@ namespace Linkedd
                 }
                 Node node = current.Next;
                 current.Next = list._head.Next;
-
                 list._tail.Next = node;
             }
             else
@@ -198,8 +185,7 @@ namespace Linkedd
         {
             if (idx==0 && GetLenght()==1)
             {
-                _head = new Node(val);
-               
+                _head = new Node(val);               
             }
             else if (GetLenght() > idx)
             {
@@ -222,7 +208,7 @@ namespace Linkedd
 
         public void RemoveFirst()
         {
-            if (GetLenght()==0)
+            if (GetLenght() == 0)
             {
                 throw new NullReferenceException("Нет элементов");
             }
@@ -230,8 +216,6 @@ namespace Linkedd
             {
                 RemoveFirstMultiple(1);
             }
-            
-
         }
         public void RemoveFirstMultiple(int n)
         {
@@ -253,7 +237,6 @@ namespace Linkedd
             {
                 throw new NullReferenceException("Нет элементов");
             }
-
         }
         public int GetFirst()
         {

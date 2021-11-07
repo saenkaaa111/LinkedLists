@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Linkedd
+namespace List
 {
     public class DoublyLinkedList
     {
@@ -34,7 +34,7 @@ namespace Linkedd
                     current = _tail;
                     _tail = _tail.Next;
                     _tail.Prev = current;
-                    
+
                 }
             }
             else
@@ -118,6 +118,46 @@ namespace Linkedd
             }
 
         }
+
+        public void AddLast(DoublyLinkedList list)
+        {
+
+            if (GetLenght() == 0)
+            {
+                _head = list._head;
+            }
+            else if (list.GetLenght() == 0)
+            {
+
+            }
+            else
+            {
+                list._head.Next.Prev = _tail;
+                _tail.Next = list._head.Next;
+            }
+        }
+        public void AddFirst(DoublyLinkedList list)
+        {
+
+            if (GetLenght() == 0)
+            {
+                _head = list._head;
+            }
+            else if (list.GetLenght() == 0)
+            {
+
+            }
+
+            else
+            {
+                DoublyNode current = _head;
+                list._head.Prev = null;
+                _head = list._head;
+                current.Next.Prev = list._tail;
+                list._tail.Next = current.Next;
+                current.Next.Prev = list._tail;
+            }
+        }
         public void AddAt(int idx, int val)
         {
             if (GetLenght() > idx)
@@ -132,9 +172,34 @@ namespace Linkedd
                 node.Next = current.Next;
                 node.Prev = current.Next.Prev;
                 current.Next.Prev = node;
-                current.Next = node;                
+                current.Next = node;
                 current.Next.Value = node.Value;
-                               
+
+
+            }
+            else
+            {
+                throw new NullReferenceException("Индекс больше чем количество элементов");
+            }
+        }
+        public void AddAt(int idx, DoublyLinkedList list)
+        {
+            if (list.GetLenght() == 0 || GetLenght() == 0)
+            {
+
+            }
+            else if (GetLenght() > idx)
+            {
+                DoublyNode current = _head;
+                for (int i = 0; i < idx; i++)
+                {
+                    current = current.Next;
+                }
+                DoublyNode node = current.Next;
+                current.Next = list._head.Next;
+                list._head.Next.Prev = node.Prev;
+                list._tail.Next = node;
+                node.Prev = list._tail;
             }
             else
             {
@@ -173,7 +238,7 @@ namespace Linkedd
                     current = node;
                     current.Next.Value = node.Value;
                 }
-               
+
             }
             else
             {
@@ -181,6 +246,62 @@ namespace Linkedd
             }
 
         }
+
+        public void RemoveAtMultiple(int idx, int n)
+        {
+            int lenght = GetLenght();
+            if (lenght == 1 && n > 0)
+            {
+                RemoveFirst();
+            }
+            else if (lenght > idx)
+            {
+                if (_head != null)
+                {
+                    DoublyNode current = _head;
+                    for (int i = 0; i < idx; i++)
+                    {
+                        current = current.Next;
+                    }
+                    DoublyNode cur = current.Next;
+                    DoublyNode prv = current.Next.Prev;
+                    int mid;
+                    if (n < lenght - idx)
+                    {
+                        mid = idx + n;
+                    }
+                    else
+                    {
+                        mid = lenght;
+                    }
+                    for (int i = idx + 1; i < mid; i++)
+                    {
+                        cur = cur.Next;
+                    }
+                    current.Next.Prev = prv;
+                    current.Next = cur.Next;
+
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("Индекс за пределами");
+            }
+        }
+
+        public void RemoveAt(int idx)
+        {
+            if (GetLenght() > idx)
+            {
+                RemoveAtMultiple(idx, 1);
+            }
+            else
+            {
+                throw new NullReferenceException("Индекс за пределами");
+            }
+
+        }
+
         public void RemoveFirstMultiple(int n)
         {
             if (GetLenght() != 0)
@@ -196,7 +317,7 @@ namespace Linkedd
                 else
                 {
                     _head = null;
-                    
+
                 }
             }
             else
@@ -220,15 +341,19 @@ namespace Linkedd
         }
         public void RemoveLast()
         {
-            if (_head != null)
+            if (GetLenght() == 0)
+            {
+                throw new NullReferenceException("Нет элементов");
+            }
+            else if (GetLenght() == 1)
+            {
+                RemoveFirst();
+            }
+            else
             {
                 DoublyNode current = _tail.Prev;
                 _tail.Prev.Next = null;
                 _tail = current;
-            }
-            else
-            {
-                throw new NullReferenceException("Нет элементов");
             }
         }
         public void RemoveLastMultiple(int n)
@@ -241,6 +366,39 @@ namespace Linkedd
             {
                 RemoveLast();
             }
+        }
+
+        public int RemoveFirst(int val)
+        {
+            if (GetLenght() == 0)
+            {
+                throw new NullReferenceException("Нет элементов");
+            }
+            if (Contains(val) == true)
+            {
+                int number = IndexOf(val);
+                RemoveAtMultiple(number, 1);
+                return number;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public int RemoveAll(int val)
+        {
+            int count = 0;
+            if (GetLenght() == 0)
+            {
+                throw new NullReferenceException("Нет элементов");
+            }
+            while (GetLenght() != 0 && Contains(val) == true)
+            {
+                RemoveFirst(val);
+                count++;
+            }
+
+            return count;
         }
 
         public int IndexOf(int val)
@@ -262,6 +420,10 @@ namespace Linkedd
                     idx += 1;
                     current = current.Next;
                 }
+            }
+            if (idx >= GetLenght())
+            {
+                return -1;
             }
             return idx;
         }
@@ -412,6 +574,23 @@ namespace Linkedd
                 throw new NullReferenceException("Нет элементов");
             }
             return value;
+        }
+        public void Reverse()
+        {
+            DoublyNode current = _head;
+            DoublyNode node = current;
+            while (current.Next != null)
+            {
+                node = current.Prev;
+                current.Prev = current.Next;
+                current.Next = node;
+                current = current.Prev;
+            }
+            
+            if (node != null)
+            {
+                _head = _tail;
+            }
         }
     }
 }
